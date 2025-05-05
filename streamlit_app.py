@@ -154,16 +154,18 @@ if st.session_state.pending_event:
 
 # --- NEXT YEAR BUTTON ---
 if st.button("Next Year"):
-    if st.session_state.year <= 10:
+    if st.session_state.year < 10:  # Allow progress until the 10th year
         apply_choices()
-        st.experimental_rerun()  # Refresh the app to update stats
+        st.experimental_rerun()  # Refresh the app to update stats and year
     else:
+        st.session_state.year = 10  # Explicitly set to 10 to handle edge case
         st.write("Game over! You completed 10 years as mayor.")
         # Display final stats
         st.write(f"Final Sustainability: {st.session_state.sustainability}/100")
         st.write(f"Final Happiness: {st.session_state.happiness}/100")
         st.write(f"Final Budget: ${st.session_state.budget:,}")
         st.write("Thank you for playing!")
+
 
 
 
